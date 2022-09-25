@@ -4,6 +4,66 @@ const api = axios.create({
   baseURL: "https://be-voice-production.up.railway.app/api",
 });
 
+// AUTH
+
+interface INewUser {
+  username: string;
+  email: string;
+  password: string;
+}
+
+interface IUser {
+  email: string;
+  password: string;
+}
+
+export function postUser(username: string, email: string, password: string) {
+  const newUser: INewUser = {
+    username: username,
+    email: email,
+    password: password,
+  };
+  return api
+    .post("/auth/signup", newUser)
+    .then((res) => {
+      console.log(res, "signup res");
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
+}
+
+export function postLogin(email: string, password: string) {
+  const user: IUser = {
+    email: email,
+    password: password,
+  };
+  return api
+    .post("/auth/connect", user)
+    .then((res) => {
+      console.log(res, "login res");
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
+}
+
+export function fetchSignOutUser() {
+  return api.get("/auth/disconnect").then(({ data }) => {
+    console.log(data.msg, "signout res");
+    return data.msg;
+  });
+}
+
+export function fetchCurrentUser() {
+  return api.get("/auth/connected").then(({ data }) => {
+    const { user, userId } = data;
+    console.log(user, "current user ress");
+    console.log(userId, "current user id");
+    return [user, userId];
+  });
+}
+
 // TOPICS
 
 export function fetchTopics() {
