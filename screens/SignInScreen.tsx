@@ -1,7 +1,7 @@
-import { StyleSheet, View, Text, KeyboardAvoidingView } from "react-native";
-import { Button, Input } from "@rneui/themed";
+import { StyleSheet, View, Text } from "react-native";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { postLogin, fetchCurrentUser } from "../services/api";
+import FormOrg, { IInput, IButton } from "../components/organisms/FormOrg";
 
 interface IMyProps {
   navigation: any;
@@ -41,6 +41,29 @@ const SignInScreen: FunctionComponent<IMyProps> = ({
       });
   };
 
+  // Declare inputs
+
+  const emailInput: IInput = {
+    placeholder: "email",
+    value: email,
+    func: setEmail,
+    secureTextEntry: false,
+  };
+
+  const passwordInput: IInput = {
+    placeholder: "password",
+    value: password,
+    func: setPassword,
+    secureTextEntry: true,
+  };
+
+  const btn: IButton = {
+    title: "Sign in",
+    func: handleSignIn,
+  };
+
+  const inputs: IInput[] = [emailInput, passwordInput];
+
   return (
     <>
       <View style={styles.headingContainer}>
@@ -57,33 +80,7 @@ const SignInScreen: FunctionComponent<IMyProps> = ({
           </Text>
         </Text>
       </View>
-      <KeyboardAvoidingView style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Input
-            placeholder="email"
-            value={email}
-            onChangeText={(text: string) => setEmail(text)}
-            // type="email"
-            style={styles.input}
-          />
-          <Input
-            placeholder="password"
-            value={password}
-            onChangeText={(text: string) => setPassword(text)}
-            // type="password"
-            style={styles.input}
-            secureTextEntry
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            containerStyle={styles.button}
-            buttonStyle={styles.buttonColor}
-            title="Sign in"
-            onPress={handleSignIn}
-          />
-        </View>
-      </KeyboardAvoidingView>
+      <FormOrg inputs={inputs} button={btn} />
     </>
   );
 };
@@ -109,38 +106,6 @@ const styles = StyleSheet.create({
   link: {
     fontSize: 24,
     color: "#BDCCFF",
-  },
-  inputContainer: {
-    width: "90%",
-  },
-  input: {
-    backgroundColor: "white",
-    color: "#1f2937",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    marginTop: 5,
-    borderRadius: 10,
-    shadowColor: "#171717",
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    shadowOffset: { width: -2, height: 4 },
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  button: {
-    borderRadius: 33,
-    width: "80%",
-    margin: 5,
-  },
-  buttonColor: {
-    backgroundColor: "#6366f1",
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
   },
   buttonText: {
     color: "white",

@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
-import { Button } from "@rneui/themed";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { fetchSignOutUser, fetchCurrentUser } from "../services/api";
+import ButtonAuth from "../components/atoms/ButtonAuth";
 
 interface IMyProps {
   navigation: any;
@@ -29,12 +29,7 @@ const HomeScreen: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
       <Text style={styles.heading}>{email}</Text>
       <Text>Welcome to paranote</Text>
       <View style={styles.buttonContainer}>
-        <Button
-          containerStyle={styles.button}
-          buttonStyle={styles.buttonColor}
-          title="Sign Out"
-          onPress={handleSignOut}
-        />
+        <ButtonAuth title={"Sign Out"} func={handleSignOut} />
       </View>
     </View>
   );
@@ -53,30 +48,6 @@ const styles = StyleSheet.create({
     width: "60%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  button: {
-    borderRadius: 33,
-    width: "80%",
-    margin: 5,
-  },
-  buttonColor: {
-    backgroundColor: "#6366f1",
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-    textAlign: "center",
-  },
-  buttonOutlineText: {
-    color: "#6366f1",
-    fontWeight: "700",
-    fontSize: 16,
-    textAlign: "center",
   },
   heading: {
     fontSize: 24,
