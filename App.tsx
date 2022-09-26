@@ -2,19 +2,16 @@ import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { fetchUsers } from "./services/api";
+import { NavigationContainer } from "@react-navigation/native";
+import AppStack from "./navigations/AppStack";
 
 export default function App() {
-  useEffect(() => {
-    fetchUsers().then((res) => {
-      console.log(res, "res");
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Lets do this!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <AppStack />
+    </NavigationContainer>
   );
 }
 

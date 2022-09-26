@@ -25,8 +25,9 @@ export function postUser(username: string, email: string, password: string) {
   };
   return api
     .post("/auth/signup", newUser)
-    .then((res) => {
-      console.log(res, "signup res");
+    .then((data) => {
+      console.log(data, "signup res");
+      return data;
     })
     .catch((err) => {
       console.log(err, "err");
@@ -40,8 +41,8 @@ export function postLogin(email: string, password: string) {
   };
   return api
     .post("/auth/connect", user)
-    .then((res) => {
-      console.log(res, "login res");
+    .then(({ data }) => {
+      return data;
     })
     .catch((err) => {
       console.log(err, "err");
@@ -50,7 +51,6 @@ export function postLogin(email: string, password: string) {
 
 export function fetchSignOutUser() {
   return api.get("/auth/disconnect").then(({ data }) => {
-    console.log(data.msg, "signout res");
     return data.msg;
   });
 }
