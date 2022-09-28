@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { fetchUsers } from "./services/api";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppStack from "./navigations/AppStack";
 
 export default function App() {
   useEffect(() => {}, []);
 
   return (
-    <NavigationContainer>
-      <AppStack />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <AppStack />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 

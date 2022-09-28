@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { fetchSignOutUser, fetchCurrentUser } from "../services/api";
 import ButtonAuth from "../components/atoms/ButtonAuth";
+import MainHeader from "../components/organisms/MainHeader";
 
 interface IMyProps {
   navigation: any;
@@ -25,13 +26,16 @@ const HomeScreen: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
     });
   };
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>{email}</Text>
-      <Text>Welcome to paranote</Text>
-      <View style={styles.buttonContainer}>
-        <ButtonAuth title={"Sign Out"} func={handleSignOut} />
+    <>
+      <MainHeader title={"paranote"} />
+      <View style={styles.container}>
+        <Text style={styles.heading}>{email}</Text>
+        <Text>Welcome to paranote</Text>
+        <View style={styles.buttonContainer}>
+          <ButtonAuth title={"Sign Out"} func={handleSignOut} />
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 
