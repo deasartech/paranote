@@ -27,7 +27,7 @@ const HomeScreen: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
   };
   return (
     <>
-      <MainHeader title={"paranote"} />
+      <MainHeader title={"paranote"} navigation={navigation} />
       <View style={styles.container}>
         <Text style={styles.heading}>{email}</Text>
         <Text>Welcome to paranote</Text>

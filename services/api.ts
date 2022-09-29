@@ -20,7 +20,7 @@ interface IUser {
 export function postUser(username: string, email: string, password: string) {
   const newUser: INewUser = {
     username: username,
-    email: email,
+    email: email.toLowerCase(),
     password: password,
   };
   return api
@@ -36,7 +36,7 @@ export function postUser(username: string, email: string, password: string) {
 
 export function postLogin(email: string, password: string) {
   const user: IUser = {
-    email: email,
+    email: email.toLowerCase(),
     password: password,
   };
   return api
@@ -86,14 +86,20 @@ export function fetchUsers() {
   });
 }
 
-export function fetchUser(username: string) {
-  return api.get(`api/users/${username}`).then(({ data }) => {
+export function fetchUserByUsername(username: string) {
+  return api.get(`/users/username/${username}`).then(({ data }) => {
     return data.user;
   });
 }
 
+export function fetchUserByUID(uid: string) {
+  return api.get(`/users/${uid}`).then(({ data }) => {
+    return data;
+  });
+}
+
 export function patchUserByUID(uid: string) {
-  return api.patch(`/api/users/${uid}`).then(({ data }) => {
+  return api.patch(`/users/${uid}`).then(({ data }) => {
     return data.response;
   });
 }
