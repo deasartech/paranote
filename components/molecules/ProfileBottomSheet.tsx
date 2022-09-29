@@ -1,0 +1,71 @@
+import React, { useState } from "react";
+import { BottomSheet, ListItem } from "@rneui/themed";
+import { StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import SignOutOverlay from "../molecules/SignOutOverlay";
+
+type BottomSheetComponentProps = {
+  isVisible: boolean;
+  setIsVisible: any;
+  navigation: any;
+};
+
+const BottomSheetComponent: React.FunctionComponent<
+  BottomSheetComponentProps
+> = ({ isVisible, setIsVisible, navigation }) => {
+  // const [isVisible, setIsVisible] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const toggleOverlay = () => {
+    setModal(!modal);
+    setIsVisible(false);
+  };
+
+  const list = [
+    { title: "View Profile", onPress: () => navigation.replace("Profile") },
+    { title: "Edit Profile", onPress: () => navigation.replace("") },
+    {
+      title: "Close",
+      containerStyle: { backgroundColor: "#eee" },
+      titleStyle: { color: "black" },
+      onPress: () => setIsVisible(false),
+    },
+    {
+      title: "Sign out",
+      containerStyle: { backgroundColor: "#f43f5e" },
+      titleStyle: { color: "white" },
+      onPress: () => toggleOverlay(),
+    },
+  ];
+
+  return (
+    <SafeAreaProvider>
+      <SignOutOverlay
+        modal={modal}
+        setModal={setModal}
+        navigation={navigation}
+      />
+      <BottomSheet isVisible={isVisible}>
+        {list.map((l, i) => (
+          <ListItem
+            key={i}
+            containerStyle={l.containerStyle}
+            onPress={l.onPress}
+          >
+            <ListItem.Content>
+              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        ))}
+      </BottomSheet>
+    </SafeAreaProvider>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    margin: 10,
+  },
+});
+
+export default BottomSheetComponent;

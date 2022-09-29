@@ -1,21 +1,17 @@
-import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Linking,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from "react-native";
-import { Header as HeaderRNE, HeaderProps, Icon } from "@rneui/themed";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Header as HeaderRNE, HeaderProps, Icon, Avatar } from "@rneui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import ProfileBottomSheet from "../molecules/ProfileBottomSheet";
 
 type HeaderComponentProps = {
   title: string;
   view?: string;
   navigation: any;
+};
+
+type AvatarData = {
+  image_url: string;
 };
 
 type ParamList = {
@@ -24,34 +20,46 @@ type ParamList = {
   };
 };
 
-const MainHeader: React.FunctionComponent<HeaderComponentProps> = (props) => {
-  const docsNavigate = () => {
-    Linking.openURL(`https://reactnativeelements.com/docs/${props.view}`);
-  };
+const mockAvatar: AvatarData = {
+  image_url: "https://joeschmoe.io/api/v1/mail@ashallendesign.co.uk",
+};
 
-  const playgroundNavigate = () => {
-    Linking.openURL(`https://@rneui/themed.js.org/#/${props.view}`);
-  };
+const MainHeader: React.FunctionComponent<HeaderComponentProps> = ({
+  title,
+  view,
+  navigation,
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     // <SafeAreaProvider>
     <HeaderRNE
+      containerStyle={{ height: "10%" }}
       backgroundColor={"#6366f1"}
       leftComponent={{
         icon: "menu",
         color: "#fff",
+        onPress: () => navigation.replace("Home"),
       }}
       rightComponent={
-        <View style={styles.headerRight}>
-          <TouchableOpacity
-            // style={{ marginLeft: 10 }}
-            onPress={() => props.navigation.replace("Profile")}
-          >
-            <Icon type="antdesign" name="profile" color="white" />
-          </TouchableOpacity>
-        </View>
+        // <View style={styles.headerRight}>
+        <>
+          <ProfileBottomSheet
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
+            navigation={navigation}
+          />
+          <Avatar
+            size={32}
+            rounded
+            // source={l.image_url ? { uri: l.image_url } : {}}
+            source={{ uri: mockAvatar.image_url }}
+            onPress={() => setIsVisible(!isVisible)}
+          />
+        </>
+        // </View>
       }
-      centerComponent={{ text: "paranote", style: styles.heading }}
+      centerComponent={{ text: title, style: styles.heading }}
     />
     // </SafeAreaProvider>
   );

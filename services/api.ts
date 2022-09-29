@@ -86,14 +86,20 @@ export function fetchUsers() {
   });
 }
 
-export function fetchUser(username: string) {
-  return api.get(`api/users/${username}`).then(({ data }) => {
+export function fetchUserByUsername(username: string) {
+  return api.get(`/users/username/${username}`).then(({ data }) => {
     return data.user;
   });
 }
 
+export function fetchUserByUID(uid: string) {
+  return api.get(`/users/${uid}`).then(({ data }) => {
+    return data;
+  });
+}
+
 export function patchUserByUID(uid: string) {
-  return api.patch(`/api/users/${uid}`).then(({ data }) => {
+  return api.patch(`/users/${uid}`).then(({ data }) => {
     return data.response;
   });
 }
