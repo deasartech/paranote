@@ -1,11 +1,10 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
 import { fetchCurrentUser, fetchUserByUID } from "../services/api";
-import MainHeader from "../components/organisms/MainHeader";
 import { mockAvatar } from "../components/organisms/MainHeader";
-import Profiletop from "../components/organisms/ProfileTop";
-import ProfileBottom from "../components/organisms/ProfileBottom";
-import ProfileEditButton from "../components/atoms/ProfileEditButton";
+import { ProfileTop, ProfileBottom } from "../components/organisms/index";
+import { MainHeader } from "../components/organisms/index";
+import { ProfileEditButton } from "../components/atoms/index";
 
 interface IMyProps {
   navigation: any;
@@ -55,10 +54,10 @@ const Profile: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
 
   return (
     <>
-      <MainHeader title={"Profile"} navigation={navigation} />
+      <MainHeader title={"profile"} navigation={navigation} />
       <View style={styles.container}>
         <ProfileEditButton navigation={navigation} />
-        <Profiletop uri={mockAvatar.image_url} username={username} />
+        <ProfileTop uri={mockAvatar.image_url} username={username} />
         <ProfileBottom
           index={index}
           setIndex={setIndex}

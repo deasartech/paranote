@@ -9,7 +9,7 @@ type OverlayComponentProps = {
   navigation: any;
 };
 
-const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = ({
+const SignOutOverlay: React.FunctionComponent<OverlayComponentProps> = ({
   modal,
   setModal,
   navigation,
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OverlayComponent;
+export default SignOutOverlay;
