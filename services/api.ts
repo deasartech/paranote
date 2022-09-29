@@ -20,7 +20,7 @@ interface IUser {
 export function postUser(username: string, email: string, password: string) {
   const newUser: INewUser = {
     username: username,
-    email: email,
+    email: email.toLowerCase(),
     password: password,
   };
   return api
@@ -36,7 +36,7 @@ export function postUser(username: string, email: string, password: string) {
 
 export function postLogin(email: string, password: string) {
   const user: IUser = {
-    email: email,
+    email: email.toLowerCase(),
     password: password,
   };
   return api

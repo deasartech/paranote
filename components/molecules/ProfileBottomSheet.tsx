@@ -13,7 +13,6 @@ type BottomSheetComponentProps = {
 const BottomSheetComponent: React.FunctionComponent<
   BottomSheetComponentProps
 > = ({ isVisible, setIsVisible, navigation }) => {
-  // const [isVisible, setIsVisible] = useState(false);
   const [modal, setModal] = useState(false);
 
   const toggleOverlay = () => {

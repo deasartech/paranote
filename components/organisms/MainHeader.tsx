@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { Header as HeaderRNE, HeaderProps, Icon, Avatar } from "@rneui/themed";
+import { Header as HeaderRNE, Avatar } from "@rneui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ProfileBottomSheet from "../molecules/ProfileBottomSheet";
 
@@ -20,7 +20,7 @@ type ParamList = {
   };
 };
 
-const mockAvatar: AvatarData = {
+export const mockAvatar: AvatarData = {
   image_url: "https://joeschmoe.io/api/v1/mail@ashallendesign.co.uk",
 };
 
