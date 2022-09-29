@@ -2,7 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { fetchSignOutUser, fetchCurrentUser } from "../services/api";
 import ButtonAuth from "../components/atoms/ButtonAuth";
-import MainHeader from "../components/organisms/MainHeader";
+import { MainHeader } from "../components/organisms/index";
 
 interface IMyProps {
   navigation: any;

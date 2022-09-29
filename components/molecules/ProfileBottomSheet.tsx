@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BottomSheet, ListItem } from "@rneui/themed";
 import { StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import SignOutOverlay from "../molecules/SignOutOverlay";
+import { SignOutOverlay } from "../molecules/index";
 
 type BottomSheetComponentProps = {
   isVisible: boolean;
@@ -10,7 +10,7 @@ type BottomSheetComponentProps = {
   navigation: any;
 };
 
-const BottomSheetComponent: React.FunctionComponent<
+const ProfileBottomSheet: React.FunctionComponent<
   BottomSheetComponentProps
 > = ({ isVisible, setIsVisible, navigation }) => {
   const [modal, setModal] = useState(false);
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BottomSheetComponent;
+export default ProfileBottomSheet;

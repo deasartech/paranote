@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { StyleSheet, View } from "react-native";
-
-import ProfileTab from "../molecules/ProfileTab";
-import ProfileTabView from "../molecules/ProfileTabView";
+import { ProfileTab, ProfileTabView } from "../molecules/index";
 
 type IMyProps = {
   index: any;
