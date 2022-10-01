@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from "react";
-import { StyleSheet, View } from "react-native";
-import { TabView, Text } from "@rneui/themed";
+import React, { FunctionComponent, useCallback } from "react";
+import { StyleSheet, View, Linking, TouchableOpacity } from "react-native";
+import { TabView, Text, Button } from "@rneui/themed";
 
-type IMyProps = {
+interface IMyProps {
   index: any;
   setIndex: any;
   username: any;
@@ -13,6 +13,42 @@ type IMyProps = {
   repliesCount: number;
   subsCount: number;
   location: any;
+}
+
+interface IURLProps {
+  url: string;
+  children?: any;
+}
+
+const supportedURL = "https://google.com";
+
+const unsupportedURL = "slack://open?team=123456";
+
+const OpenURLButton = ({ url }: IURLProps) => {
+  const handlePress = useCallback(async () => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+      await Linking.openURL(url);
+    } else {
+      alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [url]);
+
+  return (
+    <TouchableOpacity
+      // title={children}
+      onPress={handlePress}
+      style={styles.button}
+    >
+      <Text style={styles.innerButtonText}>
+        URL: <Text style={styles.buttonLink}>{url}</Text>
+      </Text>
+    </TouchableOpacity>
+  );
 };
 
 const ProfileTabView: FunctionComponent<IMyProps> = ({
@@ -64,6 +100,7 @@ const ProfileTabView: FunctionComponent<IMyProps> = ({
           </View>
           <View style={styles.bioItem}>
             <View style={styles.bioItemInner}>
+              <Text style={styles.smallText}>Joined {joined}</Text>
               <Text style={styles.smallText}>
                 {bio ? `Bio: ${bio}` : "This user has no bio :("}
               </Text>
@@ -71,14 +108,15 @@ const ProfileTabView: FunctionComponent<IMyProps> = ({
           </View>
           <View style={styles.bioItem}>
             <View style={styles.bioItemInner}>
-              <Text style={styles.smallText}>Joined {joined}</Text>
-              <Text style={styles.smallText}>Url: {url ? url : "n/a"}</Text>
               <Text style={styles.smallText}>
                 Location: {location ? location : "n/a"}
               </Text>
               <Text style={styles.smallText}>Notes posted: {notesCount}</Text>
               <Text style={styles.smallText}>Replies sent: {repliesCount}</Text>
               <Text style={styles.smallText}>Subs: {subsCount}</Text>
+              <View style={styles.buttonContainer}>
+                <OpenURLButton url={url} />
+              </View>
             </View>
           </View>
         </View>
@@ -145,5 +183,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#eee",
     padding: 10,
+  },
+  buttonContainer: {
+    width: "100%",
+    maxWidth: 400,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  innerButtonText: {
+    // flex: 1,
+    flexWrap: "wrap",
+    fontSize: 13,
+    fontWeight: "bold",
+  },
+  button: {
+    borderRadius: 33,
+    width: "100%",
+    height: 40,
+    marginHorizontal: "auto",
+    margin: 5,
+  },
+  buttonLink: {
+    color: "blue",
   },
 });

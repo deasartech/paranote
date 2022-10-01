@@ -22,7 +22,7 @@ const ProfileBottomSheet: React.FunctionComponent<
 
   const list = [
     { title: "View Profile", onPress: () => navigation.replace("Profile") },
-    { title: "Edit Profile", onPress: () => navigation.replace("") },
+    { title: "Edit Profile", onPress: () => navigation.replace("EditProfile") },
     {
       title: "Close",
       containerStyle: { backgroundColor: "#eee" },

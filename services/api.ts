@@ -17,6 +17,13 @@ interface IUser {
   password: string;
 }
 
+export interface IEdit {
+  profile_photo_img_url?: string;
+  description?: string;
+  location?: string;
+  url?: string;
+}
+
 export function postUser(username: string, email: string, password: string) {
   const newUser: INewUser = {
     username: username,
@@ -98,8 +105,8 @@ export function fetchUserByUID(uid: string) {
   });
 }
 
-export function patchUserByUID(uid: string) {
-  return api.patch(`/users/${uid}`).then(({ data }) => {
+export function patchUserByUID(uid: string, info: IEdit) {
+  return api.patch(`/users/${uid}`, info).then(({ data }) => {
     return data.response;
   });
 }
