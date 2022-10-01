@@ -18,7 +18,7 @@ const ProfileTop: FunctionComponent<IMyProps> = ({
         <Image
           source={{ uri: uri }}
           containerStyle={styles.profileImage}
-          // PlaceholderContent={<ActivityIndicator />}
+          // PlaceholderContent={require("../../assets/avatar/avatar.jpg")}
         />
       </View>
       <Text style={styles.heading}>{username || <ActivityIndicator />}</Text>
@@ -47,12 +47,14 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   profileImage: {
+    aspectRatio: 1,
     height: 140,
     width: 140,
     borderRadius: 100,
     borderWidth: 4,
     borderColor: "#fff",
     backgroundColor: "#eee",
+    resizeMode: "contain",
   },
   heading: {
     fontSize: 24,

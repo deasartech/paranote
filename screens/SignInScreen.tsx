@@ -66,21 +66,27 @@ const SignInScreen: FunctionComponent<IMyProps> = ({
 
   return (
     <>
-      <View style={styles.headingContainer}>
-        <Text style={styles.heading}>Hey,</Text>
-        <Text style={styles.heading}>Sign in</Text>
-        <Text style={styles.heading}>
-          or{" "}
-          <Text
-            // title="SignUp"
-            onPress={() => navigation.navigate("SignUp")}
-            style={styles.link}
-          >
-            Create an account
-          </Text>
-        </Text>
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <View style={styles.headingContainer}>
+            <Text style={styles.heading}>Hey,</Text>
+            <Text style={styles.heading}>Sign in</Text>
+            <Text style={styles.heading}>
+              or{" "}
+              <Text
+                // title="SignUp"
+                onPress={() => navigation.navigate("SignUp")}
+                style={styles.link}
+              >
+                Create an account
+              </Text>
+            </Text>
+          </View>
+          <View style={styles.inputContainer}>
+            <FormOrg inputs={inputs} button={btn} />
+          </View>
+        </View>
       </View>
-      <FormOrg inputs={inputs} button={btn} />
     </>
   );
 };
@@ -91,13 +97,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  innerContainer: {
+    flex: 1,
+    // backgroundColor: "#fff",
+    backgroundColor: "#bbf7d0",
+    // paddingBottom: 100,
+    // height: "60%",
+    width: "100%",
+    height: "100%",
+    maxWidth: 500,
+    marginHorizontal: "auto",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   headingContainer: {
     backgroundColor: "#FFF",
     paddingHorizontal: 20,
-    paddingTop: 80,
+    paddingTop: 100,
+    paddingBottom: 40,
+  },
+  inputContainer: {
+    height: "100%",
   },
   heading: {
     fontSize: 24,

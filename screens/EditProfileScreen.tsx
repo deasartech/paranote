@@ -1,16 +1,22 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
+import { Text } from "@rneui/themed";
 import { fetchCurrentUser, fetchUserByUID } from "../services/api";
-import { mockAvatar } from "../components/organisms/MainHeader";
-import { ProfileTop, ProfileBottom } from "../components/organisms/index";
 import { MainHeader } from "../components/organisms/index";
-import { ProfileEditButton } from "../components/atoms/index";
+import { EditProfileListItems } from "../components/molecules/index";
 
 interface IMyProps {
   navigation: any;
 }
 
-const Profile: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
+export interface IItem {
+  title: string;
+  destination: string;
+}
+
+const EditProfileScreen: FunctionComponent<IMyProps> = ({
+  navigation,
+}: IMyProps) => {
   const [uid, setUid] = useState("");
   const [email, setEmail] = useState("");
   const [profile, setProfile] = useState([]);
@@ -25,6 +31,8 @@ const Profile: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
   const [index, setIndex] = useState(0);
 
   const dimensions = useWindowDimensions();
+
+  const items: IItem[] = [];
 
   useEffect(() => {
     fetchCurrentUser().then((res) => {
@@ -54,28 +62,13 @@ const Profile: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
 
   return (
     <>
-      <MainHeader title={"profile"} navigation={navigation} />
-      <View style={styles.container}>
-        <ProfileEditButton navigation={navigation} />
-        <ProfileTop uri={mockAvatar.image_url} username={username} />
-        <ProfileBottom
-          index={index}
-          setIndex={setIndex}
-          username={username}
-          notesCount={notesCount}
-          bio={bio}
-          joined={joined}
-          url={url}
-          repliesCount={repliesCount}
-          subsCount={subsCount}
-          location={location}
-        />
-      </View>
+      <MainHeader title={"edit profile"} navigation={navigation} />
+      <EditProfileListItems navigation={navigation} items={items} uid={uid} />
     </>
   );
 };
 
-export default Profile;
+export default EditProfileScreen;
 
 const styles = StyleSheet.create({
   container: {

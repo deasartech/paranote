@@ -16,7 +16,7 @@ const ProfileEditButton: FunctionComponent<IMyProps> = ({
         buttonStyle={styles.buttonColor}
         title={"Edit Profile"}
         titleStyle={{ fontSize: 13 }}
-        onPress={() => navigation.replace("Home")}
+        onPress={() => navigation.replace("EditProfile")}
       />
     </View>
   );
