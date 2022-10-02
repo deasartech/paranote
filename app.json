@@ -14,11 +14,14 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryAddUsageDescription": "Give Expo experiences permission to save photos",
+        "NSPhotoLibraryUsageDescription": "Give Expo experiences permission to access your photos",
+        "NSCameraUsageDescription": "Give Expo experiences permission to take photos for profile images"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +31,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
   }
 }

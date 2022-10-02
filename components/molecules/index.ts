@@ -4,6 +4,7 @@ import ProfileTab from "./ProfileTab";
 import ProfileTabView from "./ProfileTabView";
 import SignOutOverlay from "./SignOutOverlay";
 import EditProfileListItems from "./EditProfileListItems";
+import ImageAvatar from "./ImageAvatar";
 
 export {
   InputsForm,
@@ -12,4 +13,5 @@ export {
   ProfileTabView,
   SignOutOverlay,
   EditProfileListItems,
+  ImageAvatar,
 };

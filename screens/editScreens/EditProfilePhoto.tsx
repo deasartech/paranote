@@ -2,29 +2,30 @@ import React, { FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
 import { Text } from "@rneui/themed";
 import { patchUserByUID, fetchUserByUID, IEdit } from "../../services/api";
-import {
-  InputEditProfile,
-  ButtonSaveChanges,
-} from "../../components/atoms/index";
-import { IInput, IButton } from "../../components/organisms/FormOrg";
+import { ButtonSaveChanges } from "../../components/atoms/index";
+import { IButton } from "../../components/organisms/FormOrg";
+import { ImagePickerProfileImage } from "../../components/organisms/index";
+import * as ImagePicker from "expo-image-picker";
 
 interface IMyProps {
   navigation: any;
   route?: any;
 }
 
-export interface IItem {
-  title: string;
-  destination: string;
+export interface IPicker {
+  uri: string | null;
+  func: any;
 }
 
 const EditProfilePhoto: FunctionComponent<IMyProps> = ({
   navigation,
   route,
 }: IMyProps) => {
-  const [newUid, setnewUid] = useState("");
   const [val, setVal] = useState("");
   const [newVal, setNewVal] = useState("");
+  const [url, setUrl] = useState("");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState<string | null>(null);
 
   const dimensions = useWindowDimensions();
 
@@ -37,16 +38,22 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
       console.log(response.user, "user res");
       console.log(response.user[property], "response property");
       setVal({ ...response.user });
+      setUrl(response.user.profile_photo_image_url);
+      setName(response.user.username);
     });
   }, []);
 
   useEffect(() => {
-    console.log(uid, "uid");
-    console.log(property, "property");
-    console.log(newVal, "new value");
-  }, [val, newVal]);
+    console.log(image, "image uri");
+  }, [image]);
 
   const handleUpdateInfo = () => {
+    // get secure url from our server
+
+    // upload image directly to the s3 bucket
+
+    // post request to server to store upploaded image url
+
     const info: IEdit = {
       [property]: newVal,
     };
@@ -57,13 +64,29 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
     });
   };
 
+  // function to open image picker
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   // Declare inputs
 
-  const infoInput: IInput = {
-    placeholder: "Enter new information",
-    value: newVal,
-    func: setNewVal,
-    secureTextEntry: false,
+  const picker: IPicker = {
+    uri: image,
+    func: pickImage,
   };
 
   const btn: IButton = {
@@ -71,11 +94,19 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
     func: handleUpdateInfo,
   };
 
+  // uri is current users profile image uri
+  // func is image picker
+
   return (
     <>
       <View style={styles.keyboardContainer}>
         <View style={styles.contentContainer}>
           <Text style={styles.title}>new {route.params.name}:</Text>
+          <ImagePickerProfileImage
+            uri={picker.uri}
+            func={picker.func}
+            name={name}
+          />
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -93,8 +124,8 @@ const styles = StyleSheet.create({
   },
   keyboardContainer: {
     flex: 1,
-    backgroundColor: "#bbf7d0",
-    paddingBottom: 100,
+    // backgroundColor: "#bbf7d0",
+    paddingBottom: 130,
     height: "60%",
     width: "100%",
     maxWidth: 500,
