@@ -18,6 +18,7 @@ const ProfileScreen: FunctionComponent<IMyProps> = ({
   const [profile, setProfile] = useState([]);
   const [username, setUsername] = useState("");
   const [notesCount, setNotesCount] = useState(0);
+  const [avatar, setAvatar] = useState("");
   const [subsCount, setSubsCount] = useState(0);
   const [repliesCount, setRepliesCount] = useState(0);
   const [joined, setJoined] = useState("");
@@ -39,6 +40,7 @@ const ProfileScreen: FunctionComponent<IMyProps> = ({
         setProfile(response.user);
         setUsername(response.user.username);
         setNotesCount(response.user.subscribers_count);
+        setAvatar(response.user.profile_photo_image_url);
         setSubsCount(response.user.notes_count);
         setSubsCount(response.user.notes_count);
         setRepliesCount(response.user.replies_count);

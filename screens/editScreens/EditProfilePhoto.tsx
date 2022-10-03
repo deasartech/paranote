@@ -1,7 +1,13 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
 import { Text } from "@rneui/themed";
-import { patchUserByUID, fetchUserByUID, IEdit } from "../../services/api";
+import {
+  patchUserByUID,
+  putImageToBucket,
+  fetchUserByUID,
+  fetchS3URL,
+  IEdit,
+} from "../../services/api";
 import { ButtonSaveChanges } from "../../components/atoms/index";
 import { IButton } from "../../components/organisms/FormOrg";
 import { ImagePickerProfileImage } from "../../components/organisms/index";
@@ -26,6 +32,7 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState<string | null>(null);
+  const [file, setFile] = useState<any>(null);
 
   const dimensions = useWindowDimensions();
 
@@ -45,23 +52,31 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
 
   useEffect(() => {
     console.log(image, "image uri");
-  }, [image]);
+    console.log(uid, "uid");
+  }, [image, uid]);
 
-  const handleUpdateInfo = () => {
+  const handleUpdateInfo = async () => {
     // get secure url from our server
+    const { url } = await fetchS3URL();
+    console.log(url, "client side url");
 
     // upload image directly to the s3 bucket
+    if (url) {
+      await putImageToBucket(url, image);
+      const imageURL: string = url.split("?")[0];
+      console.log(imageURL, "client side image url");
+      console.log(typeof imageURL, "typeof image url");
+      // patch request to update user profile_photo_image_url
 
-    // post request to server to store upploaded image url
-
-    const info: IEdit = {
-      [property]: newVal,
-    };
-    patchUserByUID(uid, info).then((res) => {
-      console.log(res, "patch response screen");
-      setNewVal("");
-      navigation.goBack();
-    });
+      const info: IEdit = {
+        profilePhoto: imageURL,
+      };
+      patchUserByUID(uid, info).then((res) => {
+        console.log(res, "patch response screen");
+        setNewVal("");
+        navigation.goBack();
+      });
+    }
   };
 
   // function to open image picker
@@ -75,10 +90,11 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
       quality: 1,
     });
 
-    console.log(result);
+    console.log(result, "file result");
 
     if (!result.cancelled) {
       setImage(result.uri);
+      setFile(result);
     }
   };
 
