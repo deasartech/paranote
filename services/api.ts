@@ -2,6 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://be-voice-production.up.railway.app/api",
+  // baseURL: "http://localhost:7090/api",
 });
 
 // AUTH
@@ -18,7 +19,7 @@ interface IUser {
 }
 
 export interface IEdit {
-  profile_photo_img_url?: string;
+  profilePhoto?: string;
   description?: string;
   location?: string;
   url?: string;
@@ -109,4 +110,22 @@ export function patchUserByUID(uid: string, info: IEdit) {
   return api.patch(`/users/${uid}`, info).then(({ data }) => {
     return data.response;
   });
+}
+
+// test patch avatar
+export function fetchS3URL() {
+  return api.get("/users/s3-url").then(({ data }) => {
+    console.log(data, "fetch s3 api response");
+    return data;
+  });
+}
+
+export function putImageToBucket(url: string, formData: any) {
+  return api
+    .put(url, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then(({ data }) => {
+      return data;
+    });
 }
