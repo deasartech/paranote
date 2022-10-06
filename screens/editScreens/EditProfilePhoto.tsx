@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
-import { Text } from "@rneui/themed";
+import { Text, Image } from "@rneui/themed";
 import {
   patchUserByUID,
   putImageToBucket,
@@ -12,6 +12,7 @@ import { ButtonSaveChanges } from "../../components/atoms/index";
 import { IButton } from "../../components/organisms/FormOrg";
 import { ImagePickerProfileImage } from "../../components/organisms/index";
 import * as ImagePicker from "expo-image-picker";
+import { images } from "../../assets/avatar/index";
 
 interface IMyProps {
   navigation: any;
@@ -29,7 +30,7 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
 }: IMyProps) => {
   const [val, setVal] = useState("");
   const [newVal, setNewVal] = useState("");
-  const [url, setUrl] = useState("");
+  const [photoUrl, setNewPhotoUrl] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<any>(null);
@@ -40,19 +41,19 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
   const title = route.params.title;
   const uid = route.params.uid;
   useEffect(() => {
-    console.log(route.params.propertyToEdit, "route");
+    // console.log(route.params.propertyToEdit, "route");
     fetchUserByUID(uid).then((response) => {
-      console.log(response.user, "user res");
-      console.log(response.user[property], "response property");
+      // console.log(response.user, "user res");
+      // console.log(response.user[property], "response property");
       setVal({ ...response.user });
-      setUrl(response.user.profile_photo_image_url);
+      setNewPhotoUrl(response.user.profile_photo_image_url);
       setName(response.user.username);
     });
   }, []);
 
   useEffect(() => {
     console.log(image, "image uri");
-    console.log(uid, "uid");
+    // console.log(uid, "uid");
   }, [image, uid]);
 
   const handleUpdateInfo = async () => {
@@ -65,7 +66,7 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
       await putImageToBucket(url, image);
       const imageURL: string = url.split("?")[0];
       console.log(imageURL, "client side image url");
-      console.log(typeof imageURL, "typeof image url");
+
       // patch request to update user profile_photo_image_url
 
       const info: IEdit = {
@@ -95,6 +96,7 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
     if (!result.cancelled) {
       setImage(result.uri);
       setFile(result);
+      console.log(result, "result");
     }
   };
 

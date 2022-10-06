@@ -114,7 +114,7 @@ export function patchUserByUID(uid: string, info: IEdit) {
 
 // test patch avatar
 export function fetchS3URL() {
-  return api.get("/users/s3-url").then(({ data }) => {
+  return api.get("/s3/upload-url").then(({ data }) => {
     console.log(data, "fetch s3 api response");
     return data;
   });
