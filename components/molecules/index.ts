@@ -5,13 +5,17 @@ import ProfileTabView from "./ProfileTabView";
 import SignOutOverlay from "./SignOutOverlay";
 import EditProfileListItems from "./EditProfileListItems";
 import ImageAvatar from "./ImageAvatar";
+import InputsFormPost from "./InputsFormPost";
+import RecordingAudio from "./RecordingAudio";
 
 export {
   InputsForm,
+  InputsFormPost,
   ProfileBottomSheet,
   ProfileTab,
   ProfileTabView,
   SignOutOverlay,
   EditProfileListItems,
   ImageAvatar,
+  RecordingAudio,
 };

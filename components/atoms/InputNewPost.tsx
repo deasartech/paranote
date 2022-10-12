@@ -8,13 +8,11 @@ interface IMyProps {
   propertyToEdit?: string;
 }
 
-const InputEditProfile: FunctionComponent<IMyProps> = ({
+const InputNewPost: FunctionComponent<IMyProps> = ({
   inputs,
   propertyToEdit,
 }) => {
-  useEffect(() => {
-    console.log(propertyToEdit, "prop to edit");
-  }, [propertyToEdit]);
+  useEffect(() => {}, []);
 
   const { placeholder, value, func } = inputs;
   return (
@@ -24,9 +22,8 @@ const InputEditProfile: FunctionComponent<IMyProps> = ({
         value={value}
         onChangeText={(text: string) => func(text)}
         multiline={propertyToEdit === "description" ? true : false}
-        // multiline={true}
         style={styles.input}
-        containerStyle={{ height: "100%" }}
+        // containerStyle={{ height: "100%" }}
         inputContainerStyle={
           propertyToEdit === "description"
             ? styles.inputContainerMultiline
@@ -37,12 +34,12 @@ const InputEditProfile: FunctionComponent<IMyProps> = ({
   );
 };
 
-export default InputEditProfile;
+export default InputNewPost;
 
 const styles = StyleSheet.create({
   inputContainerMultiline: {
     borderBottomWidth: 0,
-    height: "90%",
+    height: "80%",
   },
   inputContainerSingle: {
     borderBottomWidth: 0,
@@ -61,6 +58,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     borderBottomWidth: 0,
     height: "95%",
-    // justifyContent: "flex-start",
+    justifyContent: "flex-start",
   },
 });

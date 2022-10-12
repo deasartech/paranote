@@ -1,4 +1,5 @@
 import axios from "axios";
+import { INewUser, IUser, IEdit } from "../types/types";
 
 const api = axios.create({
   baseURL: "https://be-voice-production.up.railway.app/api",
@@ -6,24 +7,6 @@ const api = axios.create({
 });
 
 // AUTH
-
-interface INewUser {
-  username: string;
-  email: string;
-  password: string;
-}
-
-interface IUser {
-  email: string;
-  password: string;
-}
-
-export interface IEdit {
-  profilePhoto?: string;
-  description?: string;
-  location?: string;
-  url?: string;
-}
 
 export function postUser(username: string, email: string, password: string) {
   const newUser: INewUser = {
@@ -58,46 +41,76 @@ export function postLogin(email: string, password: string) {
 }
 
 export function fetchSignOutUser() {
-  return api.get("/auth/disconnect").then(({ data }) => {
-    return data.msg;
-  });
+  return api
+    .get("/auth/disconnect")
+    .then(({ data }) => {
+      return data.msg;
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
 }
 
 export function fetchCurrentUser() {
-  return api.get("/auth/connected").then(({ data }) => {
-    const { user, userId } = data;
-    console.log(user, "current user ress");
-    console.log(userId, "current user id");
-    return [user, userId];
-  });
+  return api
+    .get("/auth/connected")
+    .then(({ data }) => {
+      const { user, userId } = data;
+      console.log(user, "current user ress");
+      console.log(userId, "current user id");
+      return [user, userId];
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
 }
 
 // TOPICS
 
 export function fetchTopics() {
-  return api.get("/topics").then(({ data }) => {
-    return data.topics;
-  });
+  return api
+    .get("/topics")
+    .then(({ data }) => {
+      return data.topics;
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
 }
 
 export function fetchTopic(slug: string) {
-  return api.get(`/topics/${slug}`).then(({ data }) => {
-    return data.topic[0];
-  });
+  return api
+    .get(`/topics/${slug}`)
+    .then(({ data }) => {
+      return data.topic[0];
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
 }
 
 // USERS
 
 export function fetchUsers() {
-  return api.get("/users").then(({ data }) => {
-    return data.users;
-  });
+  return api
+    .get("/users")
+    .then(({ data }) => {
+      return data.users;
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
 }
 
 export function fetchUserByUsername(username: string) {
-  return api.get(`/users/username/${username}`).then(({ data }) => {
-    return data.user;
-  });
+  return api
+    .get(`/users/username/${username}`)
+    .then(({ data }) => {
+      return data.user;
+    })
+    .catch((err) => {
+      console.log(err, "err");
+    });
 }
 
 export function fetchUserByUID(uid: string) {
@@ -127,5 +140,25 @@ export function putImageToBucket(url: string, formData: any) {
     })
     .then(({ data }) => {
       return data;
+    });
+}
+
+// NOTES
+
+export function fetchNotes() {
+  return api.get("/notes").then(({ data }) => {
+    console.log(data, "fetch noytes data ");
+    return data.notes;
+  });
+}
+
+export function postNote(note: object) {
+  return api
+    .post("/notes/post", note)
+    .then(({ data }) => {
+      return data.response;
+    })
+    .catch((err) => {
+      console.log(err, "err");
     });
 }

@@ -7,7 +7,7 @@ interface IMyProps {
   func: any;
 }
 
-const ButtonAuth: FunctionComponent<IMyProps> = ({ title, func }) => {
+const ButtonPrimary: FunctionComponent<IMyProps> = ({ title, func }) => {
   return (
     <Button
       containerStyle={styles.button}
@@ -18,12 +18,13 @@ const ButtonAuth: FunctionComponent<IMyProps> = ({ title, func }) => {
   );
 };
 
-export default ButtonAuth;
+export default ButtonPrimary;
 
 const styles = StyleSheet.create({
   button: {
     borderRadius: 33,
     width: "80%",
+    marginHorizontal: "auto",
     margin: 5,
   },
   buttonColor: {

@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text } from "react-native";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { fetchSignOutUser, fetchCurrentUser } from "../services/api";
-import ButtonAuth from "../components/atoms/ButtonAuth";
 import { MainHeader } from "../components/organisms/index";
+import { NewNoteSpeedDial } from "../components/atoms/index";
 
 interface IMyProps {
   navigation: any;
@@ -13,27 +13,17 @@ const HomeScreen: FunctionComponent<IMyProps> = ({ navigation }: IMyProps) => {
 
   useEffect(() => {
     fetchCurrentUser().then((res) => {
-      const [user, userId] = res;
+      const [user, userId]: any = res;
       console.log(user, "current user res");
       setEmail(user.email);
     });
   }, []);
 
-  const handleSignOut = () => {
-    fetchSignOutUser().then((res) => {
-      console.log(res);
-      navigation.replace("SignIn");
-    });
-  };
   return (
     <>
       <MainHeader title={"paranote"} navigation={navigation} />
       <View style={styles.container}>
-        <Text style={styles.heading}>{email}</Text>
-        <Text>Welcome to paranote</Text>
-        <View style={styles.buttonContainer}>
-          <ButtonAuth title={"Sign Out"} func={handleSignOut} />
-        </View>
+        <NewNoteSpeedDial navigation={navigation} />
       </View>
     </>
   );

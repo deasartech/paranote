@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
-import { Text } from "@rneui/themed";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import { fetchCurrentUser, fetchUserByUID } from "../services/api";
 import { MainHeader } from "../components/organisms/index";
 import { EditProfileListItems } from "../components/molecules/index";
@@ -11,7 +10,9 @@ interface IMyProps {
 
 export interface IItem {
   title: string;
+  description: string;
   destination: string;
+  val: string;
 }
 
 const EditProfileScreen: FunctionComponent<IMyProps> = ({
@@ -32,11 +33,44 @@ const EditProfileScreen: FunctionComponent<IMyProps> = ({
 
   const dimensions = useWindowDimensions();
 
-  const items: IItem[] = [];
+  const items: IItem[] = [
+    {
+      title: "profile image",
+      description: "Upload a more recent profile image",
+      destination: "EditPhoto",
+      val: "profile_photo_img_url",
+    },
+    {
+      title: "bio",
+      description: "A short description of your background and who you are",
+      destination: "EditInfo",
+      val: "description",
+    },
+    {
+      title: "location",
+      description: "Update your current location",
+      destination: "EditInfo",
+      val: "location",
+    },
+    {
+      title: "url",
+      description:
+        "Let people know where they can find out more about you (blog, personal website)",
+      destination: "EditInfo",
+      val: "url",
+    },
+    {
+      title: "honor/success",
+      description:
+        "Add your academic or professional achievements to boost your credibility",
+      destination: "EditInfo",
+      val: "",
+    },
+  ];
 
   useEffect(() => {
     fetchCurrentUser().then((res) => {
-      const [user, userId] = res;
+      const [user, userId]: any = res;
       setEmail(user.email);
       setUid(userId);
 

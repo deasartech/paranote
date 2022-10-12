@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
+import React, { FunctionComponent, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 import { Text, Icon } from "@rneui/themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
 

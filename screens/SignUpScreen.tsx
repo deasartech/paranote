@@ -1,7 +1,8 @@
 import { StyleSheet, View, Text } from "react-native";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { postUser, postLogin, fetchCurrentUser } from "../services/api";
-import FormOrg, { IInput, IButton } from "../components/organisms/FormOrg";
+import FormOrg from "../components/organisms/FormOrg";
+import { IInput, IButton } from "../types/types";
 
 interface IMyProps {
   navigation: any;
@@ -16,7 +17,7 @@ const SignUpScreen: FunctionComponent<IMyProps> = ({
 
   useEffect(() => {
     fetchCurrentUser().then((res) => {
-      const [user, userId] = res;
+      const [user, userId]: any = res;
       console.log(user, "current user res");
       if (userId !== null) {
         navigation.replace("Home");
