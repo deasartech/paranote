@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { Image, Text } from "@rneui/themed";
-import { View, StyleSheet, ImageBackground } from "react-native";
-import { images } from "../../assets/avatar/index";
+import { View, StyleSheet } from "react-native";
+// import { images } from "../../assets/avatar/index";
 import { ImageAvatar } from "../molecules/index";
 
 interface IMyProps {

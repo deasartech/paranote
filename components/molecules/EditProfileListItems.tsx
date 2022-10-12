@@ -1,6 +1,7 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
+import React, { FunctionComponent } from "react";
+import { StyleSheet, View } from "react-native";
 import { ListItem } from "../atoms/index";
+import { IItem } from "../../screens/EditProfileScreen";
 
 interface IMyProps {
   navigation: any;
@@ -13,44 +14,10 @@ const EditProfileListItems: FunctionComponent<IMyProps> = ({
   items,
   uid,
 }: IMyProps) => {
-  const listArray = [
-    {
-      title: "profile image",
-      description: "Upload a more recent profile image",
-      destination: "EditPhoto",
-      val: "profile_photo_img_url",
-    },
-    {
-      title: "bio",
-      description: "A short description of your background and who you are",
-      destination: "EditInfo",
-      val: "description",
-    },
-    {
-      title: "location",
-      description: "Update your current location",
-      destination: "EditInfo",
-      val: "location",
-    },
-    {
-      title: "url",
-      description:
-        "Let people know where they can find out more about you (blog, personal website)",
-      destination: "EditInfo",
-      val: "url",
-    },
-    {
-      title: "honor/success",
-      description:
-        "Add your academic or professional achievements to boost your credibility",
-      destination: "EditInfo",
-      val: "",
-    },
-  ];
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
-        {listArray.map((item) => {
+        {items.map((item: IItem) => {
           return (
             <ListItem
               navigation={navigation}

@@ -1,27 +1,13 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  useWindowDimensions,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { Text } from "@rneui/themed";
-import { patchUserByUID, fetchUserByUID, IEdit } from "../../services/api";
-import {
-  InputEditProfile,
-  ButtonSaveChanges,
-} from "../../components/atoms/index";
-import { IInput, IButton } from "../../components/organisms/FormOrg";
+import { patchUserByUID, fetchUserByUID } from "../../services/api";
+import { InputEditProfile, ButtonPrimary } from "../../components/atoms/index";
+import { IEdit, IInput, IButton } from "../../types/types";
 
 interface IMyProps {
   navigation: any;
   route?: any;
-}
-
-export interface IItem {
-  title: string;
-  destination: string;
 }
 
 const EditProfileValue: FunctionComponent<IMyProps> = ({
@@ -31,10 +17,6 @@ const EditProfileValue: FunctionComponent<IMyProps> = ({
   const [newUid, setnewUid] = useState("");
   const [val, setVal] = useState("");
   const [newVal, setNewVal] = useState("");
-
-  const dimensions = useWindowDimensions();
-
-  const items: IItem[] = [];
 
   const property = route.params.propertyToEdit;
   const propTitle = route.params.title;
@@ -49,10 +31,10 @@ const EditProfileValue: FunctionComponent<IMyProps> = ({
   }, []);
 
   useEffect(() => {
-    console.log(uid, "uid");
-    console.log(propTitle, "title");
-    console.log(val[property], "value");
-    console.log(newVal, "new value");
+    // console.log(uid, "uid");
+    // console.log(propTitle, "title");
+    // console.log(val[property], "value");
+    // console.log(newVal, "new value");
   }, [val, newVal]);
 
   const handleUpdateInfo = () => {
@@ -97,7 +79,7 @@ const EditProfileValue: FunctionComponent<IMyProps> = ({
           </View>
         </KeyboardAvoidingView>
         <View style={styles.buttonContainer}>
-          <ButtonSaveChanges title={btn.title} func={btn.func} />
+          <ButtonPrimary title={btn.title} func={btn.func} />
         </View>
       </View>
     </>

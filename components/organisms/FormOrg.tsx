@@ -1,19 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import InputsForm from "../molecules/InputsForm";
-import ButtonAuth from "../atoms/ButtonAuth";
-
-export interface IInput {
-  placeholder: string;
-  value: any;
-  func: any;
-  secureTextEntry?: boolean;
-}
-
-export interface IButton {
-  title: string;
-  func: any;
-}
+import { ButtonPrimary } from "../atoms/index";
+import { IInput, IButton } from "../../types/types";
 
 interface IMyProps {
   inputs: IInput[];
@@ -21,7 +10,6 @@ interface IMyProps {
 }
 
 const FormOrg: FunctionComponent<IMyProps> = ({ inputs, button }) => {
-  console.log(inputs, button, "form org");
   return (
     <>
       <KeyboardAvoidingView style={styles.container}>
@@ -29,7 +17,7 @@ const FormOrg: FunctionComponent<IMyProps> = ({ inputs, button }) => {
           <InputsForm inputs={inputs} />
         </View>
         <View style={styles.buttonContainer}>
-          <ButtonAuth title={button.title} func={button.func} />
+          <ButtonPrimary title={button.title} func={button.func} />
         </View>
       </KeyboardAvoidingView>
     </>

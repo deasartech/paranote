@@ -1,20 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { StyleSheet } from "react-native";
 import InputAuth from "../atoms/InputAuth";
-
-export type IInput = {
-  placeholder: string;
-  value: string;
-  func: any;
-  secureTextEntry?: boolean;
-};
+import { IInput } from "../../types/types";
 
 interface IMyProps {
   inputs: IInput[];
 }
 
 const InputsForm: FunctionComponent<IMyProps> = ({ inputs }) => {
-  console.log(inputs, "inputs form");
   return (
     <>
       {inputs.map((input, index) => {

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { StyleSheet, View, ActivityIndicator } from "react-native";
-import { Button, Text, Image } from "@rneui/themed";
+import { Text, Image } from "@rneui/themed";
 
 type IMyProps = {
   uri: string;

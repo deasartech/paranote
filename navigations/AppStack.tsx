@@ -7,6 +7,8 @@ import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import EditProfileValue from "../screens/editScreens/EditProfileValue";
 import EditProfilePhoto from "../screens/editScreens/EditProfilePhoto";
+import PostNoteScreen from "../screens/PostNoteScreen";
+import RecordNewNoteScreen from "../screens/RecordNewNoteScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +20,11 @@ const AppStack: FunctionComponent = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen
+        name="PostNote"
+        component={PostNoteScreen}
+        options={{ title: "Back" }}
+      />
       <Stack.Group
         screenOptions={{
           headerShown: true,
@@ -32,6 +39,11 @@ const AppStack: FunctionComponent = () => {
         <Stack.Screen
           name="EditPhoto"
           component={EditProfilePhoto}
+          options={{ title: "Back" }}
+        />
+        <Stack.Screen
+          name="RecordNote"
+          component={RecordNewNoteScreen}
           options={{ title: "Back" }}
         />
       </Stack.Group>

@@ -4,21 +4,21 @@ import { Header as HeaderRNE, Avatar } from "@rneui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ProfileBottomSheet from "../molecules/ProfileBottomSheet";
 
-type HeaderComponentProps = {
+interface HeaderComponentProps {
   title: string;
   view?: string;
   navigation: any;
-};
+}
 
-type AvatarData = {
+interface AvatarData {
   image_url: string;
-};
+}
 
-type ParamList = {
+interface ParamList {
   Detail: {
     openDrawer: void;
   };
-};
+}
 
 export const mockAvatar: AvatarData = {
   image_url: "https://joeschmoe.io/api/v1/mail@ashallendesign.co.uk",

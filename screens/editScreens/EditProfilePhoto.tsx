@@ -1,18 +1,17 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
-import { Text, Image } from "@rneui/themed";
+import { Text } from "@rneui/themed";
 import {
   patchUserByUID,
   putImageToBucket,
   fetchUserByUID,
   fetchS3URL,
-  IEdit,
 } from "../../services/api";
-import { ButtonSaveChanges } from "../../components/atoms/index";
-import { IButton } from "../../components/organisms/FormOrg";
+import { ButtonPrimary } from "../../components/atoms/index";
 import { ImagePickerProfileImage } from "../../components/organisms/index";
 import * as ImagePicker from "expo-image-picker";
-import { images } from "../../assets/avatar/index";
+// import { images } from "../../assets/avatar/index";
+import { IEdit, IButton } from "../../types/types";
 
 interface IMyProps {
   navigation: any;
@@ -128,7 +127,7 @@ const EditProfilePhoto: FunctionComponent<IMyProps> = ({
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonSaveChanges title={btn.title} func={btn.func} />
+        <ButtonPrimary title={btn.title} func={btn.func} />
       </View>
     </>
   );
